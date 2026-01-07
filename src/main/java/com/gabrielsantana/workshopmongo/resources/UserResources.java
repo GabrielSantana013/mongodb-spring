@@ -1,6 +1,7 @@
 package com.gabrielsantana.workshopmongo.resources;
 
 import com.gabrielsantana.workshopmongo.domain.User;
+import com.gabrielsantana.workshopmongo.dto.UserDTO;
 import com.gabrielsantana.workshopmongo.repository.UserRepository;
 import com.gabrielsantana.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -26,14 +28,11 @@ public class UserResources {
     private UserRepository repo;
 
     @RequestMapping(method= RequestMethod.GET)
-    public ResponseEntity<List<User>> findAll(){
+    public ResponseEntity<List<UserDTO>> findAll(){
         List<User> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<UserDTO> listDTO = list.stream().map(UserDTO::new).toList();
+        return ResponseEntity.ok().body(listDTO);
     }
 
-    @PostMapping("/test")
-    public User testInsert() {
-        return repo.save(new User("teste", "teste", null));
-    }
 }
 
