@@ -6,10 +6,7 @@ import com.gabrielsantana.workshopmongo.repository.UserRepository;
 import com.gabrielsantana.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,6 +29,12 @@ public class UserResources {
         List<User> list = service.findAll();
         List<UserDTO> listDTO = list.stream().map(UserDTO::new).toList();
         return ResponseEntity.ok().body(listDTO);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<UserDTO> findById(@PathVariable String id){
+        User user = service.findById(id);
+        return ResponseEntity.ok().body(new UserDTO(user));
     }
 
 }
