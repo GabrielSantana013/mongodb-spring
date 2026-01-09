@@ -2,6 +2,7 @@ package com.gabrielsantana.workshopmongo.config;
 
 import com.gabrielsantana.workshopmongo.domain.Post;
 import com.gabrielsantana.workshopmongo.domain.User;
+import com.gabrielsantana.workshopmongo.dto.AuthorDTO;
 import com.gabrielsantana.workshopmongo.repository.PostRepository;
 import com.gabrielsantana.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,15 +38,17 @@ public class Instantiation implements CommandLineRunner {
         User guga = new User(null, "Guga", "guga@gmail.com");
         User gabas = new User(null, "Gabas69", "gabas69@gmail.com");
 
+        userRepository.saveAll(Arrays.asList(igao, pedro, luiz, dhara, guga, gabas));
+
         Post p1 = new Post(null, sdf.parse("21/03/2018"), "Estourei a fimose", "Hoje estourei a fimose!" +
-                " Nem doeu tanto assim,só fiquei com a bunda assada!", pedro);
+                " Nem doeu tanto assim,só fiquei com a bunda assada!", new AuthorDTO(pedro));
 
         Post p2 = new Post(null, sdf.parse("23/03/2018"), "Moggei os Betas", "Seloco familia, farmei" +
-                " aura em cima desses betinhas, muito sigma", gabas);
+                " aura em cima desses betinhas, muito sigma", new AuthorDTO(gabas));
 
 
 
-        userRepository.saveAll(Arrays.asList(igao, pedro, luiz, dhara, guga, gabas));
+
         postRepository.saveAll(Arrays.asList(p1,p2));
     }
 }
