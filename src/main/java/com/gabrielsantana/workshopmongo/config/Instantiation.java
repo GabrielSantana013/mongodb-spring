@@ -3,6 +3,7 @@ package com.gabrielsantana.workshopmongo.config;
 import com.gabrielsantana.workshopmongo.domain.Post;
 import com.gabrielsantana.workshopmongo.domain.User;
 import com.gabrielsantana.workshopmongo.dto.AuthorDTO;
+import com.gabrielsantana.workshopmongo.dto.CommentDTO;
 import com.gabrielsantana.workshopmongo.repository.PostRepository;
 import com.gabrielsantana.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,12 @@ public class Instantiation implements CommandLineRunner {
         Post p2 = new Post(null, sdf.parse("23/03/2018"), "Moggei os Betas", "Seloco familia, farmei" +
                 " aura em cima desses betinhas, muito sigma", new AuthorDTO(gabas));
 
+        CommentDTO c1 = new CommentDTO("Pedro?", sdf.parse("22/03/2018"),new AuthorDTO(igao));
+        CommentDTO c2 = new CommentDTO("Gabas69 neles", sdf.parse("22/03/2018"),new AuthorDTO(luiz));
+        CommentDTO c3 = new CommentDTO("Esquisito.", sdf.parse("23/03/2018"),new AuthorDTO(dhara));
 
+        p1.getComments().addAll(Arrays.asList(c1,c2));
+        p2.getComments().add(c3);
 
 
         postRepository.saveAll(Arrays.asList(p1,p2));
